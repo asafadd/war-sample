@@ -30,6 +30,39 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-        </plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                   <execution>
+                      <id>default-deploy</id>
+                      <phase>deploy</phase>
+                      <goals>
+                         <goal>deploy</goal>
+                      </goals>
+                   </execution>
+                </executions>
+                <configuration>
+                   <serverId>nexus</serverId>
+                   <nexusUrl>http://ip-172-31-7-109.eu-central-1.compute.internal:8081/</nexusUrl>
+                   <skipStaging>true</skipStaging>
+                </configuration>
+            </plugin>
+        </plugins>        
     </build>
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>My Nexus Repository</name>
+            <url>http://ip-172-31-7-109.eu-central-1.compute.internal:8081</url>
+        </repository>
+    </distributionManagement>
 </project>
